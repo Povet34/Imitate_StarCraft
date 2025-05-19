@@ -1,32 +1,91 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInput : MonoBehaviour
+namespace RTS
 {
-    [SerializeField] Transform cameraTarget;
-    [SerializeField] float keyboardPaneSpeed = 5;
-
-    private void Update()
+    public class PlayerInput : MonoBehaviour
     {
-        Vector2 moveAmount = Vector2.zero;
+        [SerializeField] Transform cameraTarget;
+        [SerializeField] float keyboardPaneSpeed = 5;
+        [SerializeField] CinemachineCamera cinemachineCamera;
+        [SerializeField] float zoomSpeed = 1;
+        [SerializeField] float minZoomDistance = 7.5f;
+        [SerializeField] float maxZoomDistance = 15f;
 
-        if(Keyboard.current.upArrowKey.isPressed)
+        CinemachineFollow cinemachineFollow;
+        float zoomStartTime;
+        Vector3 startingFollowOffset;
+
+
+        private void Awake()
         {
-            moveAmount.y += keyboardPaneSpeed;
+            if(!cinemachineCamera.TryGetComponent(out cinemachineFollow))
+            {
+                Debug.LogError("CinemachineCamera does not have a CinemachineFollow component.");
+                return;
+            }
+
+            startingFollowOffset = cinemachineFollow.FollowOffset;
         }
-        if (Keyboard.current.downArrowKey.isPressed)
+            
+        private void Update()
         {
-            moveAmount.y -= keyboardPaneSpeed;
-        }
-        if (Keyboard.current.leftArrowKey.isPressed)
-        {
-            moveAmount.x -= keyboardPaneSpeed;
-        }
-        if (Keyboard.current.rightArrowKey.isPressed)
-        {
-            moveAmount.x += keyboardPaneSpeed;
+            HandleZooming();
+            HandlePanning();
         }
 
-        cameraTarget.position += new Vector3(moveAmount.x, 0, moveAmount.y) * Time.deltaTime;
+        void HandleZooming()
+        {
+            if(ShouldSetZoomStartTime())
+            {
+                zoomStartTime = Time.time;
+            }
+
+            float zoomTime = Mathf.Clamp01(Time.time - zoomStartTime) * zoomSpeed; 
+            Vector3 targetFollowOffset = cinemachineFollow.FollowOffset;
+
+            if(Keyboard.current.endKey.isPressed)
+            {
+                targetFollowOffset.y = minZoomDistance;
+            }
+            else
+            {
+                targetFollowOffset.y = maxZoomDistance;
+            }
+
+            cinemachineFollow.FollowOffset = Vector3.Slerp(cinemachineFollow.FollowOffset, targetFollowOffset, zoomTime);
+        }
+
+        bool ShouldSetZoomStartTime()
+        {
+            return Keyboard.current.endKey.wasPressedThisFrame || Keyboard.current.endKey.wasReleasedThisFrame;
+        }
+
+        void HandlePanning()
+        {
+            Vector2 moveAmount = Vector2.zero;
+
+            if (Keyboard.current.upArrowKey.isPressed)
+            {
+                moveAmount.y += keyboardPaneSpeed;
+            }
+            if (Keyboard.current.downArrowKey.isPressed)
+            {
+                moveAmount.y -= keyboardPaneSpeed;
+            }
+            if (Keyboard.current.leftArrowKey.isPressed)
+            {
+                moveAmount.x -= keyboardPaneSpeed;
+            }
+            if (Keyboard.current.rightArrowKey.isPressed)
+            {
+                moveAmount.x += keyboardPaneSpeed;
+            }
+
+            cameraTarget.position += new Vector3(moveAmount.x, 0, moveAmount.y) * Time.deltaTime;
+        }
     }
 }
+
+
