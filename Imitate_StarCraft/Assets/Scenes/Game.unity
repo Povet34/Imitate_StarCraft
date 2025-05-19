@@ -4055,7 +4055,7 @@ MonoBehaviour:
     <EnableEdgePan>k__BackingField: 1
     <MousePanSpeed>k__BackingField: 5
     <EdgePanSize>k__BackingField: 50
-    <KeyboardPanSpeed>k__BackingField: 5
+    <KeyboardPanSpeed>k__BackingField: 10
     <ZoomSpeed>k__BackingField: 1
     <RotationSpeed>k__BackingField: 1
     <MinZoomDistance>k__BackingField: 7.5
@@ -10095,7 +10095,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857998055}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f6ae570f897c6dd429a4481a83029df1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -20134,7 +20134,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630118410}
-  m_Material: {fileID: 13400000, guid: 02ac0807feb6d1e439606b266b43c08b, type: 2}
+  m_Material: {fileID: 13400000, guid: f6ae570f897c6dd429a4481a83029df1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -20155,7 +20155,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630118410}
-  m_Material: {fileID: 13400000, guid: 02ac0807feb6d1e439606b266b43c08b, type: 2}
+  m_Material: {fileID: 13400000, guid: f6ae570f897c6dd429a4481a83029df1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -20176,7 +20176,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630118410}
-  m_Material: {fileID: 13400000, guid: 02ac0807feb6d1e439606b266b43c08b, type: 2}
+  m_Material: {fileID: 13400000, guid: f6ae570f897c6dd429a4481a83029df1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -20197,7 +20197,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630118410}
-  m_Material: {fileID: 13400000, guid: 02ac0807feb6d1e439606b266b43c08b, type: 2}
+  m_Material: {fileID: 13400000, guid: f6ae570f897c6dd429a4481a83029df1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
