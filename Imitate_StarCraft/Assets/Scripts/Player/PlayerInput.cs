@@ -42,7 +42,7 @@ namespace RTS
                 zoomStartTime = Time.time;
             }
 
-            float zoomTime = Mathf.Clamp01(Time.time - zoomStartTime) * zoomSpeed; 
+             float zoomTime = Mathf.Clamp01(Time.time - zoomStartTime) * zoomSpeed; 
             Vector3 targetFollowOffset = cinemachineFollow.FollowOffset;
 
             if(Keyboard.current.endKey.isPressed)
@@ -55,6 +55,7 @@ namespace RTS
             }
 
             cinemachineFollow.FollowOffset = Vector3.Slerp(cinemachineFollow.FollowOffset, targetFollowOffset, zoomTime);
+            cinemachineFollow.FollowOffset.z = -8;
         }
 
         bool ShouldSetZoomStartTime()
