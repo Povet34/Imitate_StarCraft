@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using RTS.Units;
 using RTS.EventBus;
 using RTS.Event;
+using System.Collections.Generic;
 
 namespace RTS.Player
 {
@@ -11,20 +12,22 @@ namespace RTS.Player
     {
         [SerializeField] private Rigidbody cameraTarget;
         [SerializeField] private CinemachineCamera cinemachineCamera;
-        [SerializeField] private CameraConfig cameraConfig;
         [SerializeField] private new Camera camera;
+        [SerializeField] private CameraConfig cameraConfig;
         [SerializeField] private LayerMask selectableUnitsLayers;
         [SerializeField] private LayerMask floorLayers;
         [SerializeField] private RectTransform selectionBox;
+
+        private Vector2 startingMousePosition;
 
         private CinemachineFollow cinemachineFollow;
         private float zoomStartTime;
         private float rotationStartTime;
         private Vector3 startingFollowOffset;
         private float maxRotationAmount;
-        private ISelectable selectedUnit;
-
-        private Vector2 startingMousePosition;
+        private HashSet<AbstractUnit> aliveUnits = new(100);
+        private HashSet<AbstractUnit> addedUnits = new(24);
+        private List<ISelectable> selectedUnits = new(12);
 
         private void Awake()
         {
@@ -38,30 +41,25 @@ namespace RTS.Player
 
             Bus<UnitSelectedEvent>.OnEvent += HandleUnitSelected;
             Bus<UnitDeselectedEvent>.OnEvent += HandleUnitDeselected;
+            Bus<UnitSpawnEvent>.OnEvent += HandleUnitSpawn;
         }
 
         private void OnDestroy()
         {
             Bus<UnitSelectedEvent>.OnEvent -= HandleUnitSelected;
             Bus<UnitDeselectedEvent>.OnEvent -= HandleUnitDeselected;
+            Bus<UnitSpawnEvent>.OnEvent -= HandleUnitSpawn;
         }
 
-        private void HandleUnitDeselected(UnitDeselectedEvent evt)
-        {
-            selectedUnit = null;
-        }
-
-        private void HandleUnitSelected(UnitSelectedEvent evt)
-        {
-            selectedUnit = evt.Unit;
-        }
+        private void HandleUnitSelected(UnitSelectedEvent evt) => selectedUnits.Add(evt.Unit);
+        private void HandleUnitDeselected(UnitDeselectedEvent evt) => selectedUnits.Remove(evt.Unit);
+        private void HandleUnitSpawn(UnitSpawnEvent evt) => aliveUnits.Add(evt.Unit);
 
         private void Update()
         {
             HandlePanning();
             HandleZooming();
             HandleRotation();
-            HandleLeftClick();
             HandleRightClick();
             HandleDragSelect();
         }
@@ -72,22 +70,65 @@ namespace RTS.Player
 
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
-                selectionBox.gameObject.SetActive(true);
-                startingMousePosition = Mouse.current.position.ReadValue();
+                HandleMouseDown();
             }
             else if (Mouse.current.leftButton.isPressed && !Mouse.current.leftButton.wasPressedThisFrame)
             {
-                ResizeSelectionBox();
+                HandleMouseDrag();
             }
             else if (Mouse.current.leftButton.wasReleasedThisFrame)
             {
-                // select new units
-                // deselect non-included units
-                selectionBox.gameObject.SetActive(false);
+                HandleMouseUp();
             }
         }
 
-        private void ResizeSelectionBox()
+        private void HandleMouseUp()
+        {
+            if (!Keyboard.current.shiftKey.isPressed)
+            {
+                DeselectAllUnits();
+            }
+
+            HandleLeftClick();
+            foreach (AbstractUnit unit in addedUnits)
+            {
+                unit.Select();
+            }
+            selectionBox.gameObject.SetActive(false);
+        }
+
+        private void HandleMouseDrag()
+        {
+            Bounds selectionBoxBounds = ResizeSelectionBox();
+            foreach (AbstractUnit unit in aliveUnits)
+            {
+                Vector2 unitPosition = camera.WorldToScreenPoint(unit.transform.position);
+
+                if (selectionBoxBounds.Contains(unitPosition))
+                {
+                    addedUnits.Add(unit);
+                }
+            }
+        }
+
+        private void HandleMouseDown()
+        {
+            selectionBox.sizeDelta = Vector2.zero;
+            selectionBox.gameObject.SetActive(true);
+            startingMousePosition = Mouse.current.position.ReadValue();
+            addedUnits.Clear();
+        }
+
+        private void DeselectAllUnits()
+        {
+            ISelectable[] currentlySelectedUnits = selectedUnits.ToArray();
+            foreach (ISelectable selectable in currentlySelectedUnits)
+            {
+                selectable.Deselect();
+            }
+        }
+
+        private Bounds ResizeSelectionBox()
         {
             Vector2 mousePosition = Mouse.current.position.ReadValue();
 
@@ -96,42 +137,40 @@ namespace RTS.Player
 
             selectionBox.anchoredPosition = startingMousePosition + new Vector2(width / 2, height / 2);
             selectionBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
+
+            return new Bounds(selectionBox.anchoredPosition, selectionBox.sizeDelta);
         }
 
         private void HandleRightClick()
         {
-            if (selectedUnit == null || selectedUnit is not IMoveable moveable) { return; }
+            if (selectedUnits.Count == 0) { return; }
 
             Ray cameraRay = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
             if (Mouse.current.rightButton.wasReleasedThisFrame
                 && Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, floorLayers))
             {
-                moveable.MoveTo(hit.point);
+                foreach (ISelectable selectable in selectedUnits)
+                {
+                    if (selectable is IMoveable moveable)
+                    {
+                        moveable.MoveTo(hit.point);
+                    }
+                }
             }
         }
 
         private void HandleLeftClick()
         {
-            if (camera == null) 
-            { return; }
+            if (camera == null) { return; }
 
             Ray cameraRay = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-            if (Mouse.current.leftButton.wasReleasedThisFrame)
+            if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, selectableUnitsLayers)
+                && hit.collider.TryGetComponent(out ISelectable selectable))
             {
-                if(selectedUnit != null)
-                {
-                    selectedUnit.Deselect();
-                }
-
-                if (Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, selectableUnitsLayers)
-                    && hit.collider.TryGetComponent(out ISelectable selectable))
-                {
-                    selectable.Select();
-                }
+                selectable.Select();
             }
-
         }
 
         private void HandleRotation()
@@ -142,6 +181,7 @@ namespace RTS.Player
             }
 
             float rotationTime = Mathf.Clamp01((Time.time - rotationStartTime) * cameraConfig.RotationSpeed);
+
             Vector3 targetFollowOffset;
 
             if (Keyboard.current.pageDownKey.isPressed)
@@ -232,6 +272,37 @@ namespace RTS.Player
             cameraTarget.linearVelocity = new Vector3(moveAmount.x, 0, moveAmount.y);
         }
 
+        private Vector2 GetMouseMoveAmount()
+        {
+            Vector2 moveAmount = Vector2.zero;
+
+            if (!cameraConfig.EnableEdgePan) { return moveAmount; }
+
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+            int screenWidth = Screen.width;
+            int screenHeight = Screen.height;
+
+            if (mousePosition.x <= cameraConfig.EdgePanSize)
+            {
+                moveAmount.x -= cameraConfig.MousePanSpeed;
+            }
+            else if (mousePosition.x >= screenWidth - cameraConfig.EdgePanSize)
+            {
+                moveAmount.x += cameraConfig.MousePanSpeed;
+            }
+
+            if (mousePosition.y >= screenHeight - cameraConfig.EdgePanSize)
+            {
+                moveAmount.y += cameraConfig.MousePanSpeed;
+            }
+            else if (mousePosition.y <= cameraConfig.EdgePanSize)
+            {
+                moveAmount.y -= cameraConfig.MousePanSpeed;
+            }
+
+            return moveAmount;
+        }
+
         private Vector2 GetKeyboardMoveAmount()
         {
             Vector2 moveAmount = Vector2.zero;
@@ -255,36 +326,6 @@ namespace RTS.Player
 
             return moveAmount;
         }
-
-        private Vector2 GetMouseMoveAmount()
-        {
-            Vector2 moveAmount = Vector2.zero;
-            if (!cameraConfig.EnableEdgePan)
-            {
-                return moveAmount;
-            }
-
-            Vector2 movePosition = Mouse.current.position.ReadValue();
-            Vector2 screenSize = new Vector2(Screen.width, Screen.height);
-
-            if(movePosition.x <= cameraConfig.EdgePanSize)
-            {
-                moveAmount.x -= cameraConfig.MousePanSpeed;
-            }
-            if(movePosition.y > screenSize.y - cameraConfig.EdgePanSize)
-            {
-                moveAmount.y += cameraConfig.MousePanSpeed;
-            }
-            if (movePosition.x >= screenSize.x - cameraConfig.EdgePanSize)
-            {
-                moveAmount.x += cameraConfig.MousePanSpeed;
-            }
-            if (movePosition.y <= cameraConfig.EdgePanSize)
-            {
-                moveAmount.y -= cameraConfig.MousePanSpeed;
-            }
-
-            return moveAmount;
-        }
     }
+
 }
