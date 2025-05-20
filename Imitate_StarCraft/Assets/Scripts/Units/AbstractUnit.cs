@@ -9,6 +9,8 @@ namespace RTS.Units
     [RequireComponent(typeof(NavMeshAgent))]
     public abstract class AbstractUnit : MonoBehaviour, ISelectable, IMoveable
     {
+        public float AgentRadius => agent.radius;
+        
         [SerializeField] private DecalProjector decalProjector;
         private NavMeshAgent agent;
 
