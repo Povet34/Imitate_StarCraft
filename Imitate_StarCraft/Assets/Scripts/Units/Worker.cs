@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 namespace RTS.Units
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Worker : MonoBehaviour, ISelectable
+    public class Worker : MonoBehaviour, ISelectable, IMoveable
     {
         [SerializeField] private Transform target;
         [SerializeField] private DecalProjector decalProjector;
@@ -18,6 +18,11 @@ namespace RTS.Units
             {
                 decalProjector.gameObject.SetActive(false);
             }
+        }
+
+        public void MoveTo(Vector3 position)
+        {
+            agent.SetDestination(position);
         }
 
         public void Select()
