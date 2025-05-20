@@ -489,7 +489,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25938730}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_SerializedVersion: 0
   m_AgentTypeID: -1372625422
   m_CollectObjects: 1
-  m_Size: {x: 100, y: 2, z: 128.94879}
+  m_Size: {x: 100, y: 5.49, z: 128.94879}
   m_Center: {x: 0, y: 3, z: -0.45940018}
   m_LayerMask:
     serializedVersion: 2
@@ -708,6 +708,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
       objectReference: {fileID: 0}
@@ -842,6 +846,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
@@ -4493,6 +4501,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
@@ -10533,6 +10545,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
       objectReference: {fileID: 0}
@@ -13458,6 +13474,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
       objectReference: {fileID: 0}
@@ -13655,6 +13675,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
       objectReference: {fileID: 0}
@@ -13715,6 +13739,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
@@ -14142,6 +14170,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
@@ -17153,6 +17185,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
       objectReference: {fileID: 0}
@@ -18970,6 +19006,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
       objectReference: {fileID: 0}
@@ -19438,6 +19478,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
       objectReference: {fileID: 0}
@@ -19694,6 +19738,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
       objectReference: {fileID: 0}
@@ -19754,6 +19802,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
@@ -25981,6 +26033,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
       objectReference: {fileID: 0}
@@ -26578,6 +26634,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3
@@ -28100,6 +28160,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
+      propertyPath: m_Height
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 3

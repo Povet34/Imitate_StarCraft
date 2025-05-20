@@ -133,10 +133,10 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 0.1
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 3
 --- !u!114 &5911458461933218647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54187b03979caeb4d9c8dd6d20b69420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   decalProjector: {fileID: 1141859082728876945}
 --- !u!136 &2237098396088552888
 CapsuleCollider:
