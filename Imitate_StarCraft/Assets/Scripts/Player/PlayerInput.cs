@@ -13,6 +13,7 @@ namespace RTS.Player
         [SerializeField] private new Camera camera;
         [SerializeField] private LayerMask selectableUnitsLayers;
         [SerializeField] private LayerMask floorLayers;
+        [SerializeField] private RectTransform selectionBox;
 
         private CinemachineFollow cinemachineFollow;
         private float zoomStartTime;
@@ -20,6 +21,8 @@ namespace RTS.Player
         private Vector3 startingFollowOffset;
         private float maxRotationAmount;
         private ISelectable selectedUnit;
+
+        private Vector2 startingMousePosition;
 
         private void Awake()
         {
@@ -39,6 +42,39 @@ namespace RTS.Player
             HandleRotation();
             HandleLeftClick();
             HandleRightClick();
+            HandleDragSelect();
+        }
+
+        private void HandleDragSelect()
+        {
+            if (selectionBox == null) { return; }
+
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                selectionBox.gameObject.SetActive(true);
+                startingMousePosition = Mouse.current.position.ReadValue();
+            }
+            else if (Mouse.current.leftButton.isPressed && !Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                ResizeSelectionBox();
+            }
+            else if (Mouse.current.leftButton.wasReleasedThisFrame)
+            {
+                // select new units
+                // deselect non-included units
+                selectionBox.gameObject.SetActive(false);
+            }
+        }
+
+        private void ResizeSelectionBox()
+        {
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+
+            float width = mousePosition.x - startingMousePosition.x;
+            float height = mousePosition.y - startingMousePosition.y;
+
+            selectionBox.anchoredPosition = startingMousePosition + new Vector2(width / 2, height / 2);
+            selectionBox.sizeDelta = new Vector2(Mathf.Abs(width), Mathf.Abs(height));
         }
 
         private void HandleRightClick()
