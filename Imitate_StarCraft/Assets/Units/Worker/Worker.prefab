@@ -51,10 +51,10 @@ MonoBehaviour:
   m_EndAngleFade: 180
   m_UVScale: {x: 1, y: 1}
   m_UVBias: {x: 0, y: 0}
-  m_DecalLayerMask: 1
+  m_DecalLayerMask: 2
   m_ScaleMode: 0
-  m_Offset: {x: 0, y: 0, z: 0.5}
-  m_Size: {x: 1.5, y: 1.5, z: 1}
+  m_Offset: {x: 0, y: 0, z: 5}
+  m_Size: {x: 1.5, y: 1.5, z: 10}
   m_FadeFactor: 1
 --- !u!1 &6510919576379171628
 GameObject:
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 3294841019048850653}
   - component: {fileID: 5911458461933218647}
   - component: {fileID: 2237098396088552888}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Worker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
