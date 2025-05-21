@@ -1,10 +1,10 @@
+using RTS.EventBus;
+using RTS.Events;
+using RTS.Units;
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using RTS.Units;
-using RTS.EventBus;
-using RTS.Events;
-using System.Collections.Generic;
 
 namespace RTS.Player
 {

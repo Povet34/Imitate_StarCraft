@@ -1,8 +1,7 @@
-using RTS.Events;
 using RTS.EventBus;
+using RTS.Events;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering.Universal;
 
 namespace RTS.Units
 {
@@ -18,8 +17,9 @@ namespace RTS.Units
             agent = GetComponent<NavMeshAgent>();
         }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             Bus<UnitSpawnEvent>.Raise(new UnitSpawnEvent(this));
         }
 
