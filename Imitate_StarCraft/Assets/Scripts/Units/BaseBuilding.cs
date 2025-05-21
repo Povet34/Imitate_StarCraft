@@ -1,6 +1,4 @@
 namespace RTS.Units
 {
-    public class BaseBuilding : AbstractCommandable
-    {
-    }
+    public class BaseBuilding : AbstractCommandable { }
 }
