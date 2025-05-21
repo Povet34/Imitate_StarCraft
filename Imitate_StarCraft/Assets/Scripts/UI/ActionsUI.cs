@@ -5,22 +5,26 @@ using RTS.EventBus;
 using RTS.Events;
 using RTS.Units;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RTS.UI
 {
     public class ActionsUI : MonoBehaviour
     {
-        [SerializeField] private UIActionButton[] ActionButtons;
+        [SerializeField] private UIActionButton[] actionButtons;
         private HashSet<AbstractCommandable> selectedUnits = new(12);
 
         private void Awake()
         {
             Bus<UnitSelectedEvent>.OnEvent += HandleUnitSelected;
             Bus<UnitDeselectedEvent>.OnEvent += HandleUnitDeselected;
+        }
 
-            foreach (UIActionButton actionButton in ActionButtons)
+        private void Start()
+        {
+            foreach (UIActionButton actionButton in actionButtons)
             {
-                actionButton.SetIcon(null);
+                actionButton.Disable();
             }
         }
 
@@ -45,7 +49,7 @@ namespace RTS.UI
             {
                 selectedUnits.Remove(commandable);
                 RefreshButtons();
-            }
+            }   
         }
 
         private void RefreshButtons()
@@ -57,19 +61,24 @@ namespace RTS.UI
                 availableCommands.UnionWith(commandable.AvailableCommands);
             }
 
-            for (int i = 0; i < ActionButtons.Length; i++)
+            for (int i = 0; i < actionButtons.Length; i++)
             {
                 ActionBase actionForSlot = availableCommands.Where(action => action.Slot == i).FirstOrDefault();
 
                 if (actionForSlot != null)
                 {
-                    ActionButtons[i].SetIcon(actionForSlot.Icon);
+                    actionButtons[i].EnableFor(actionForSlot, HandleClick(actionForSlot));
                 }
                 else
                 {
-                    ActionButtons[i].SetIcon(null);
+                    actionButtons[i].Disable();
                 }
             }
+        }
+
+        private UnityAction HandleClick(ActionBase action)
+        {
+            return () => Bus<ActionSelectedEvent>.Raise(new ActionSelectedEvent(action));
         }
     }
 }
