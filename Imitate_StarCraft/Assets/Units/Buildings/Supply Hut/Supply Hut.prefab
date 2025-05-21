@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3007753749229990871}
   - component: {fileID: 2422821575361291847}
-  - component: {fileID: 842107253407106178}
   - component: {fileID: 4287769382834547075}
+  - component: {fileID: 2590654462282013835}
   m_Layer: 7
   m_Name: Supply Hut
   m_TagString: Untagged
@@ -57,22 +57,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1.5, z: 2}
   m_Center: {x: 0, y: 0.75, z: 0}
---- !u!114 &842107253407106178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6964012305514025925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90676a0fdc6365242812701263ada6e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <CurrentHealth>k__BackingField: 0
-  <MaxHealth>k__BackingField: 0
-  decalProjector: {fileID: 5871448344458732579}
-  UnitSO: {fileID: 11400000, guid: 98c1c42c60343e747928543037a69141, type: 2}
 --- !u!208 &4287769382834547075
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -85,10 +69,26 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.625, y: 0.5, z: 0.665}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &2590654462282013835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6964012305514025925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 028be6b4469fc9f4b81ef92b6fc4f71f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CurrentHealth>k__BackingField: 0
+  <MaxHealth>k__BackingField: 0
+  decalProjector: {fileID: 5871448344458732579}
+  UnitSO: {fileID: 11400000, guid: 98c1c42c60343e747928543037a69141, type: 2}
 --- !u!1 &9014621294297799566
 GameObject:
   m_ObjectHideFlags: 0
