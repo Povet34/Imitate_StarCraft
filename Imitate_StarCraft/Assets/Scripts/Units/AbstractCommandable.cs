@@ -1,3 +1,4 @@
+using RTS.Commands;
 using RTS.EventBus;
 using RTS.Events;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace RTS.Units
     {
         [field: SerializeField] public int CurrentHealth { get; private set; }
         [field: SerializeField] public int MaxHealth { get; private set; }
+        [field: SerializeField] public ActionBase[] AvailableCommands { get; private set; }
         [SerializeField] private DecalProjector decalProjector;
         [SerializeField] private UnitSO UnitSO;
 

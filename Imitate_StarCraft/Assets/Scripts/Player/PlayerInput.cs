@@ -1,10 +1,11 @@
-using RTS.EventBus;
-using RTS.Events;
-using RTS.Units;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using RTS.EventBus;
+using RTS.Events;
+using RTS.Units;
+using RTS.Commands;
 
 namespace RTS.Player
 {
@@ -150,6 +151,8 @@ namespace RTS.Player
             if (Mouse.current.rightButton.wasReleasedThisFrame
                 && Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, floorLayers))
             {
+                // find applicable command
+                // issue command to all units
                 List<AbstractUnit> abstractUnits = new(selectedUnits.Count);
                 foreach (ISelectable selectable in selectedUnits)
                 {
@@ -159,32 +162,47 @@ namespace RTS.Player
                     }
                 }
 
-                int layer = 0;
-                int unitsOnLayer = 0;
-                int maxUnitsOnLayer = 1;
-                float circleRadius = 0;
-                float radialOffset = 0;
+                // int unitsOnLayer = 0;
+                // int maxUnitsOnLayer = 1;
+                // float circleRadius = 0;
+                // float radialOffset = 0;
 
                 foreach (AbstractUnit unit in abstractUnits)
                 {
-                    Vector3 targetPosition = new(
-                        hit.point.x + circleRadius * Mathf.Cos(radialOffset * unitsOnLayer),
-                        hit.point.y,
-                        hit.point.z + circleRadius * Mathf.Sin(radialOffset * unitsOnLayer)
-                    );
-
-                    unit.MoveTo(targetPosition);
-                    unitsOnLayer++;
-
-                    if (unitsOnLayer >= maxUnitsOnLayer)
+                    foreach (ICommand command in unit.AvailableCommands)
                     {
-                        layer++;
-                        unitsOnLayer = 0;
-                        circleRadius += unit.AgentRadius * 3.5f;
-                        maxUnitsOnLayer = Mathf.FloorToInt(2 * Mathf.PI * circleRadius / (unit.AgentRadius * 2));
-                        radialOffset = 2 * Mathf.PI / maxUnitsOnLayer;
+                        if (command.CanHandle(unit, hit))
+                        {
+                            command.Handle(unit, hit);
+                        }
                     }
+
+                    // Vector3 targetPosition = new(
+                    //     hit.point.x + circleRadius * Mathf.Cos(radialOffset * unitsOnLayer),
+                    //     hit.point.y,
+                    //     hit.point.z + circleRadius * Mathf.Sin(radialOffset * unitsOnLayer)
+                    // );
+
+                    // unit.MoveTo(targetPosition);
+                    // unitsOnLayer++;
+
+                    // if (unitsOnLayer >= maxUnitsOnLayer)
+                    // {
+                    //     unitsOnLayer = 0;
+                    //     circleRadius += unit.AgentRadius * 3.5f;
+                    //     maxUnitsOnLayer = Mathf.FloorToInt(2 * Mathf.PI * circleRadius / (unit.AgentRadius * 2));
+                    //     radialOffset = 2 * Mathf.PI / maxUnitsOnLayer;
+                    // }
                 }
+
+
+                // foreach(ISelectable selectable in selectedUnits)
+                // {
+                //     if (selectable is IMoveable moveable)
+                //     {
+                //         moveable.MoveTo(hit.point);
+                //     }
+                // }
             }
         }
 
@@ -355,5 +373,4 @@ namespace RTS.Player
             return moveAmount;
         }
     }
-
 }
