@@ -1,7 +1,7 @@
 ﻿using RTS.EventBus;
 using RTS.Units;
 
-namespace RTS.Event
+namespace RTS.Events
 {
     public struct UnitSpawnEvent : IEvent
     {

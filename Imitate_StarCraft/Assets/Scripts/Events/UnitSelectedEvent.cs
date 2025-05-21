@@ -3,7 +3,7 @@ using RTS.Units;
 using UnityEngine;
 
 
-namespace RTS.Event
+namespace RTS.Events
 {
     public class UnitSelectedEvent : IEvent
     {

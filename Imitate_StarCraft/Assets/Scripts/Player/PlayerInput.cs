@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using RTS.Units;
 using RTS.EventBus;
-using RTS.Event;
+using RTS.Events;
 using System.Collections.Generic;
 
 namespace RTS.Player
