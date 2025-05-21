@@ -1,28 +1,14 @@
 using RTS.Event;
 using RTS.EventBus;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
 
 namespace RTS.Units
 {
-    [RequireComponent(typeof(NavMeshAgent))]
-    public abstract class AbstractUnit : MonoBehaviour, ISelectable, IMoveable
+    public class SupplyHut : MonoBehaviour, ISelectable
     {
-        public float AgentRadius => agent.radius;
-        
         [SerializeField] private DecalProjector decalProjector;
-        private NavMeshAgent agent;
-
-        private void Awake()
-        {
-            agent = GetComponent<NavMeshAgent>();
-        }
-
-        private void Start()
-        {
-            Bus<UnitSpawnEvent>.Raise(new UnitSpawnEvent(this));
-        }
+        [field: SerializeField] public int health { get; private set; } = 100;
 
         public void Deselect()
         {
@@ -42,11 +28,6 @@ namespace RTS.Units
             }
 
             Bus<UnitSelectedEvent>.Raise(new UnitSelectedEvent(this));
-        }
-
-        public void MoveTo(Vector3 position)
-        {
-            agent.SetDestination(position);
         }
     }
 }
