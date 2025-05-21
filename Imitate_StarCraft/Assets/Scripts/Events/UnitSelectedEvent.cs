@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RTS.Events
 {
-    public class UnitSelectedEvent : IEvent
+    public struct UnitSelectedEvent : IEvent
     {
         public UnitSelectedEvent(ISelectable unit)
         {

@@ -3,7 +3,7 @@ using RTS.Units;
 
 namespace RTS.Events
 {
-    public class UnitDeselectedEvent : IEvent
+    public struct UnitDeselectedEvent : IEvent
     {
         public UnitDeselectedEvent(ISelectable unit)
         {
