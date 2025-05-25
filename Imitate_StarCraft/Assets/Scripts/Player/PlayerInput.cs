@@ -61,7 +61,15 @@ namespace RTS.Player
         private void HandleUnitSelected(UnitSelectedEvent evt) => selectedUnits.Add(evt.Unit);
         private void HandleUnitDeselected(UnitDeselectedEvent evt) => selectedUnits.Remove(evt.Unit);
         private void HandleUnitSpawn(UnitSpawnEvent evt) => aliveUnits.Add(evt.Unit);
-        private void HandleActionSelected(ActionSelectedEvent evt) => activeAction = evt.Action;
+        private void HandleActionSelected(ActionSelectedEvent evt)
+        {
+            activeAction = evt.Action;
+            if (!activeAction.RequiresClickToActivate)
+            {
+                ActivateAction(new RaycastHit());
+            }
+        }
+
 
         private void Update()
         {
@@ -206,19 +214,24 @@ namespace RTS.Player
                 && !EventSystem.current.IsPointerOverGameObject()
                 && Physics.Raycast(cameraRay, out hit, float.MaxValue, floorLayers))
             {
-                List<AbstractUnit> abstractUnits = selectedUnits
-                    .Where((unit) => unit is AbstractUnit).ToList()
-                    .Cast<AbstractUnit>()
-                    .ToList();
-
-                for (int i = 0; i < abstractUnits.Count; i++)
-                {
-                    CommandContext context = new(abstractUnits[i], hit, i);
-                    activeAction.Handle(context);
-                }
-
-                activeAction = null;
+                ActivateAction(hit);
             }
+        }
+
+        private void ActivateAction(RaycastHit hit)
+        {
+            List<AbstractUnit> abstractUnits = selectedUnits
+                .Where((unit) => unit is AbstractUnit).ToList()
+                .Cast<AbstractUnit>()
+                .ToList();
+
+            for (int i = 0; i < abstractUnits.Count; i++)
+            {
+                CommandContext context = new(abstractUnits[i], hit, i);
+                activeAction.Handle(context);
+            }
+
+            activeAction = null;
         }
 
         private void HandleRotation()
