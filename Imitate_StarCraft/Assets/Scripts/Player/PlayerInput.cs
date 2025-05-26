@@ -220,9 +220,9 @@ namespace RTS.Player
 
         private void ActivateAction(RaycastHit hit)
         {
-            List<AbstractUnit> abstractUnits = selectedUnits
-                .Where((unit) => unit is AbstractUnit).ToList()
-                .Cast<AbstractUnit>()
+            List<AbstractCommandable> abstractUnits = selectedUnits
+                .Where((unit) => unit is AbstractCommandable).ToList()
+                .Cast<AbstractCommandable>()
                 .ToList();
 
             for (int i = 0; i < abstractUnits.Count; i++)
