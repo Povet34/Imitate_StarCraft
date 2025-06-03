@@ -4,55 +4,32 @@ using RTS.Commands;
 using RTS.EventBus;
 using RTS.Events;
 using RTS.Units;
+using RTS.UI.Components;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace RTS.UI
+namespace RTS.UI.Containers
 {
-    public class ActionsUI : MonoBehaviour
+    public class ActionsUI : MonoBehaviour, IUIElement<HashSet<AbstractCommandable>>
     {
         [SerializeField] private UIActionButton[] actionButtons;
         private HashSet<AbstractCommandable> selectedUnits = new(12);
 
-        private void Awake()
+        public void EnableFor(HashSet<AbstractCommandable> selectedUnits)
         {
-            Bus<UnitSelectedEvent>.OnEvent += HandleUnitSelected;
-            Bus<UnitDeselectedEvent>.OnEvent += HandleUnitDeselected;
+            RefreshButtons(selectedUnits);
         }
 
-        private void Start()
+        public void Disable()
         {
-            foreach (UIActionButton actionButton in actionButtons)
+            foreach (UIActionButton button in actionButtons)
             {
-                actionButton.Disable();
+                button.Disable();
             }
         }
 
-        private void OnDestroy()
-        {
-            Bus<UnitSelectedEvent>.OnEvent -= HandleUnitSelected;
-            Bus<UnitDeselectedEvent>.OnEvent -= HandleUnitDeselected;
-        }
 
-        private void HandleUnitSelected(UnitSelectedEvent evt)
-        {
-            if (evt.Unit is AbstractCommandable commandable)
-            {
-                selectedUnits.Add(commandable);
-                RefreshButtons();
-            }
-        }
-
-        private void HandleUnitDeselected(UnitDeselectedEvent evt)
-        {
-            if (evt.Unit is AbstractCommandable commandable)
-            {
-                selectedUnits.Remove(commandable);
-                RefreshButtons();
-            }   
-        }
-
-        private void RefreshButtons()
+        private void RefreshButtons(HashSet<AbstractCommandable> selectedUnits)
         {
             HashSet<ActionBase> availableCommands = new(9);
 

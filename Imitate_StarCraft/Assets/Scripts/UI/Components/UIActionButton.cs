@@ -1,13 +1,12 @@
 using RTS.Commands;
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace RTS.UI
+namespace RTS.UI.Components
 {
     [RequireComponent(typeof(Button))]
-    public class UIActionButton : MonoBehaviour
+    public class UIActionButton : MonoBehaviour, IUIElement<ActionBase, UnityAction>
     {
         [SerializeField] private Image icon;
 
