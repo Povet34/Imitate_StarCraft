@@ -1,20 +1,56 @@
+using System.Collections.Generic;
+using RTS.EventBus;
+using RTS.Events;
+using RTS.UI.Containers;
+using RTS.Units;
 using UnityEngine;
+
 
 namespace RTS.UI
 {
     public class RuntimeUI : MonoBehaviour
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
-        {
+        [SerializeField] private ActionsUI actionsUI;
+        private HashSet<AbstractCommandable> selectedUnits = new(12);
 
+        private void Awake()
+        {
+            Bus<UnitSelectedEvent>.OnEvent += HandleUnitSelected;
+            Bus<UnitDeselectedEvent>.OnEvent += HandleUnitDeselected;
         }
 
-        // Update is called once per frame
-        void Update()
+        private void OnDestroy()
         {
+            Bus<UnitSelectedEvent>.OnEvent -= HandleUnitSelected;
+            Bus<UnitDeselectedEvent>.OnEvent -= HandleUnitDeselected;
+        }
 
+        private void HandleUnitSelected(UnitSelectedEvent evt)
+        {
+            if (evt.Unit is AbstractCommandable commandable)
+            {
+                selectedUnits.Add(commandable);
+                actionsUI.EnableFor(selectedUnits);
+            }
+        }
+
+        private void HandleUnitDeselected(UnitDeselectedEvent evt)
+        {
+            if (evt.Unit is AbstractCommandable commandable)
+            {
+                selectedUnits.Remove(commandable);
+
+                if (selectedUnits.Count > 0)
+                {
+                    actionsUI.EnableFor(selectedUnits);
+                }
+                else
+                {
+                    actionsUI.Disable();
+                }
+            }
         }
     }
+
 }
 
