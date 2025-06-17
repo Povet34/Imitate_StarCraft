@@ -76,5 +76,3 @@ namespace RTS.UI
         }
     }
 }
-
-z
