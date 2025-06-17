@@ -17,7 +17,7 @@ namespace RTS.UI.Containers
         {
             gameObject.SetActive(true);
             building = item;
-            //building.OnQueueUpdated += HandleQueueUpdated;
+            building.OnQueueUpdated += HandleQueueUpdated;
 
             buildCoroutine = StartCoroutine(UpdateUnitProgress());
         }
@@ -26,7 +26,7 @@ namespace RTS.UI.Containers
         {
             if (building != null)
             {
-                //building.OnQueueUpdated -= HandleQueueUpdated;
+                building.OnQueueUpdated -= HandleQueueUpdated;
             }
             gameObject.SetActive(false);
             building = null;
@@ -43,16 +43,16 @@ namespace RTS.UI.Containers
 
         private IEnumerator UpdateUnitProgress()
         {
-            //while (building != null && building.QueueSize > 0)
-            //{
-            //    float startTime = building.CurrentQueueStartTime;
-            //    float endTime = startTime + building.BuildingUnit.BuildTime;
+            while (building != null && building.QueueSize > 0)
+            {
+                float startTime = building.CurrentQueueStartTime;
+                float endTime = startTime + building.BuildingUnit.BuildTime;
 
-            //    float progress = Mathf.Clamp01((Time.time - startTime) / (endTime - startTime));
+                float progress = Mathf.Clamp01((Time.time - startTime) / (endTime - startTime));
 
-            //    progressBar.SetProgress(progress);
+                progressBar.SetProgress(progress);
                 yield return null;
-            //}
+            }
         }
     }
 }
