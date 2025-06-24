@@ -13,7 +13,8 @@ namespace RTS.Units
         public delegate void QueueUpdatedEvent(UnitSO[] unitsInQueue);
         public event QueueUpdatedEvent OnQueueUpdated;
 
-        private Queue<UnitSO> buildingQueue = new(MAX_QUEUE_SIZE);
+        private List<UnitSO> buildingQueue = new(MAX_QUEUE_SIZE);
+
 
         private const int MAX_QUEUE_SIZE = 5;
 
@@ -25,7 +26,7 @@ namespace RTS.Units
                 return;
             }
 
-            buildingQueue.Enqueue(unit);
+            buildingQueue.Add(unit);
             if (buildingQueue.Count == 1)
             {
                 StartCoroutine(DoBuildUnits());
@@ -34,14 +35,42 @@ namespace RTS.Units
             {
                 OnQueueUpdated?.Invoke(buildingQueue.ToArray());
             }
-
         }
+
+        public void CancelBuildingUnit(int index)
+        {
+            if (index < 0 || index >= buildingQueue.Count)
+            {
+                Debug.LogError("Attempting to cancel building a unit outside the bounds of the queue!");
+                return;
+            }
+
+            buildingQueue.RemoveAt(index);
+            if (index == 0)
+            {
+                StopAllCoroutines();
+
+                if (buildingQueue.Count > 0)
+                {
+                    StartCoroutine(DoBuildUnits());
+                }
+                else
+                {
+                    OnQueueUpdated?.Invoke(buildingQueue.ToArray());
+                }
+            }
+            else
+            {
+                OnQueueUpdated?.Invoke(buildingQueue.ToArray());
+            }
+        }
+
 
         private IEnumerator DoBuildUnits()
         {
             while (buildingQueue.Count > 0)
             {
-                BuildingUnit = buildingQueue.Peek();
+                BuildingUnit = buildingQueue[0];
                 CurrentQueueStartTime = Time.time;
                 OnQueueUpdated?.Invoke(buildingQueue.ToArray());
 
@@ -49,7 +78,7 @@ namespace RTS.Units
 
                 Instantiate(BuildingUnit.Prefab, transform.position, Quaternion.identity);
 
-                buildingQueue.Dequeue();
+                buildingQueue.RemoveAt(0);
             }
             OnQueueUpdated?.Invoke(buildingQueue.ToArray());
         }
