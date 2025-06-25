@@ -8,6 +8,7 @@ namespace RTS.UI.Containers
 {
     public class BuildingBuildingUI : MonoBehaviour, IUIElement<BaseBuilding>
     {
+        [SerializeField] private UIBuildQueueButton[] unitButtons;
         [SerializeField] private ProgressBar progressBar;
 
         private Coroutine buildCoroutine;
@@ -15,9 +16,11 @@ namespace RTS.UI.Containers
 
         public void EnableFor(BaseBuilding item)
         {
+            progressBar.SetProgress(0);
             gameObject.SetActive(true);
             building = item;
             building.OnQueueUpdated += HandleQueueUpdated;
+            SetupUnitButtons();
 
             buildCoroutine = StartCoroutine(UpdateUnitProgress());
         }
@@ -31,7 +34,24 @@ namespace RTS.UI.Containers
             gameObject.SetActive(false);
             building = null;
             buildCoroutine = null;
+
+            SetupUnitButtons();
         }
+
+        private void SetupUnitButtons()
+        {
+            int i = 0;
+            for (; i < building.QueueSize; i++)
+            {
+                int index = i;
+                unitButtons[i].EnableFor(building.Queue[i], () => building.CancelBuildingUnit(index));
+            }
+            for (; i < unitButtons.Length; i++)
+            {
+                unitButtons[i].Disable();
+            }
+        }
+
 
         private void HandleQueueUpdated(UnitSO[] unitsInQueue)
         {
@@ -53,6 +73,8 @@ namespace RTS.UI.Containers
                 progressBar.SetProgress(progress);
                 yield return null;
             }
+
+            buildCoroutine = null;
         }
     }
 }

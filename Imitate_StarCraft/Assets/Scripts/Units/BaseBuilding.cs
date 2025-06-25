@@ -7,6 +7,7 @@ namespace RTS.Units
     public class BaseBuilding : AbstractCommandable
     {
         public int QueueSize => buildingQueue.Count;
+        public UnitSO[] Queue => buildingQueue.ToArray();
         [field: SerializeField] public float CurrentQueueStartTime { get; private set; }
         [field: SerializeField] public UnitSO BuildingUnit { get; private set; }
 
