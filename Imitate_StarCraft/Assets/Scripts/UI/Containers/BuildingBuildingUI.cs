@@ -35,7 +35,6 @@ namespace RTS.UI.Containers
             building = null;
             buildCoroutine = null;
 
-            SetupUnitButtons();
         }
 
         private void SetupUnitButtons()
@@ -59,6 +58,8 @@ namespace RTS.UI.Containers
             {
                 buildCoroutine = StartCoroutine(UpdateUnitProgress());
             }
+
+            SetupUnitButtons();
         }
 
         private IEnumerator UpdateUnitProgress()
