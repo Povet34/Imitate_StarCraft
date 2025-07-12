@@ -3,11 +3,9 @@ namespace RTS.Environment
 {
     public class GatherableSupply : MonoBehaviour, IGatherable
     {
-        public SupplySO Supply { get; private set; }
-
-        public int Amount { get; private set; }
-
-        public bool IsBusy { get; private set; }
+        [field: SerializeField] public SupplySO Supply { get; private set; }
+        [field: SerializeField] public int Amount { get; private set; }
+        [field: SerializeField] public bool IsBusy { get; private set; }
 
         public bool BeginGatherg()
         {
