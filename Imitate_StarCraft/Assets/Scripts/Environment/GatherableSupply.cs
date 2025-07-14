@@ -7,6 +7,11 @@ namespace RTS.Environment
         [field: SerializeField] public int Amount { get; private set; }
         [field: SerializeField] public bool IsBusy { get; private set; }
 
+        private void Start()
+        {
+            Amount = Supply.MaxAmount;
+        }
+
         public bool BeginGatherg()
         {
             if (IsBusy)

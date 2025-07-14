@@ -3,6 +3,7 @@ using RTS.Events;
 using Unity.Behavior;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 namespace RTS.Units
 {
@@ -18,19 +19,26 @@ namespace RTS.Units
         {
             agent = GetComponent<NavMeshAgent>();
             graphAgent = GetComponent<BehaviorGraphAgent>();
-            MoveTo(transform.position);
+
+            graphAgent.SetVariableValue("Command", UnitCommands.Stop);
         }
 
         protected override void Start()
         {
             base.Start();
             Bus<UnitSpawnEvent>.Raise(new UnitSpawnEvent(this));
-            MoveTo(transform.position);
         }
 
         public void MoveTo(Vector3 position)
         {
             graphAgent.SetVariableValue("TargetLocation", position);
+            graphAgent.SetVariableValue("Command", UnitCommands.Move);
+
+        }
+
+        public void Stop()
+        {
+            graphAgent.SetVariableValue("Command", UnitCommands.Stop);
         }
     }
 }
