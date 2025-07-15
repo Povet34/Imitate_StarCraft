@@ -85,7 +85,8 @@ MonoBehaviour:
   - rid: 3344853237179351357
   - rid: 3344853237179351358
   - rid: 3344853237179351405
-  m_VersionTimestamp: 638881206531479049
+  - rid: 3344853262772994113
+  m_VersionTimestamp: 638882160382430519
   m_DebugInfo: {fileID: -1240826696535716589}
   m_RuntimeGraph: {fileID: 5136119600863133802}
   AssetID:
@@ -429,6 +430,7 @@ MonoBehaviour:
         - rid: 3344853237179351142
         - rid: 3344853237179351359
         - rid: 3344853237179351360
+        - rid: 3344853262772994114
         NodeType:
           m_SerializableType: Unity.Behavior.SwitchComposite, Unity.Behavior, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
@@ -554,7 +556,7 @@ MonoBehaviour:
     - rid: 3344853237179351357
       type: {class: FloatingPortNodeModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
       data:
-        Position: {x: 229.09976, y: 113.799835}
+        Position: {x: 345.59976, y: 113.799835}
         ID:
           m_Value0: 1002337037531182226
           m_Value1: 16370513756773127783
@@ -569,7 +571,7 @@ MonoBehaviour:
     - rid: 3344853237179351358
       type: {class: FloatingPortNodeModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
       data:
-        Position: {x: 441.59976, y: 113.799835}
+        Position: {x: 537.59973, y: 113.799835}
         ID:
           m_Value0: 17091775253234428344
           m_Value1: 13524319216523750984
@@ -708,6 +710,50 @@ MonoBehaviour:
         IsExposed: 1
         m_IsShared: 0
         m_Value: {fileID: 0}
+    - rid: 3344853262772994113
+      type: {class: FloatingPortNodeModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        Position: {x: 153.59976, y: 113.799835}
+        ID:
+          m_Value0: 794820452005732395
+          m_Value1: 8026931811501333376
+        Parents: []
+        PortModels:
+        - rid: 3344853262772994115
+        - rid: 3344853262772994116
+        ParentNodeID:
+          m_Value0: 13750865652443393566
+          m_Value1: 9635499248884871822
+        PortName: Gather
+    - rid: 3344853262772994114
+      type: {class: PortModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        m_Name: Gather
+        m_PortDataFlowType: 1
+        m_IsFloating: 1
+        m_NodeModel:
+          rid: 3344853237179351141
+        m_Connections:
+        - rid: 3344853262772994115
+    - rid: 3344853262772994115
+      type: {class: PortModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        m_Name: InputPort
+        m_PortDataFlowType: 0
+        m_IsFloating: 1
+        m_NodeModel:
+          rid: 3344853262772994113
+        m_Connections:
+        - rid: 3344853262772994114
+    - rid: 3344853262772994116
+      type: {class: PortModel, ns: Unity.Behavior.GraphFramework, asm: Unity.Behavior.GraphFramework}
+      data:
+        m_Name: OutputPort
+        m_PortDataFlowType: 1
+        m_IsFloating: 0
+        m_NodeModel:
+          rid: 3344853262772994113
+        m_Connections: []
 --- !u!114 &975184481929569316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -792,7 +838,7 @@ MonoBehaviour:
         AuthoringAssetID:
           m_Value0: 11826779828506857143
           m_Value1: 18195745062547933210
-        m_DebugInfo: {fileID: 0}
+        m_DebugInfo: {fileID: -1240826696535716589}
         BlackboardReference:
           rid: 3344853237179351444
         BlackboardGroupReferences: []
@@ -804,7 +850,7 @@ MonoBehaviour:
           rid: 3344853237179351446
         m_EndedNodes:
           rid: 3344853237179351447
-        m_VersionTimestamp: 638881206531479049
+        m_VersionTimestamp: 638882160382430519
     - rid: 3344853237179351444
       type: {class: BlackboardReference, ns: Unity.Behavior, asm: Unity.Behavior}
       data:
