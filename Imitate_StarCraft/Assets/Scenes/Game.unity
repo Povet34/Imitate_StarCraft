@@ -13629,14 +13629,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
-      propertyPath: m_Height
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3294841019048850653, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
-      propertyPath: m_ObstacleAvoidanceType
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4078631732461238711, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.2
@@ -13677,14 +13669,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5911458461933218647, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
-      propertyPath: <AvailableCommands>k__BackingField.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5911458461933218647, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
-      propertyPath: '<AvailableCommands>k__BackingField.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: ddfc6f9128ef3ac4d985ea712b49dc22, type: 2}
     - target: {fileID: 6510919576379171628, guid: 883b9682b823cb84cac42e4ad43d41d2, type: 3}
       propertyPath: m_Name
       value: Worker (2)
