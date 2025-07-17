@@ -12,7 +12,7 @@ namespace RTS.Units
         public float AgentRadius => agent.radius;
         
         private NavMeshAgent agent;
-        private BehaviorGraphAgent graphAgent;
+        protected BehaviorGraphAgent graphAgent;
 
         private void Awake()
         {
