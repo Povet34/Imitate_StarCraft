@@ -4361,6 +4361,9 @@ MonoBehaviour:
   floorLayers:
     serializedVersion: 2
     m_Bits: 256
+  interactableLayers:
+    serializedVersion: 2
+    m_Bits: 192
   selectionBox: {fileID: 1779718519}
 --- !u!1001 &332197402
 PrefabInstance:

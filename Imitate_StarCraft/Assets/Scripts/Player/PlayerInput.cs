@@ -19,6 +19,7 @@ namespace RTS.Player
         [SerializeField] private CameraConfig cameraConfig;
         [SerializeField] private LayerMask selectableUnitsLayers;
         [SerializeField] private LayerMask floorLayers;
+        [SerializeField] private LayerMask interactableLayers;
         [SerializeField] private RectTransform selectionBox;
 
         private Vector2 startingMousePosition;
@@ -171,7 +172,7 @@ namespace RTS.Player
             Ray cameraRay = camera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
             if (Mouse.current.rightButton.wasReleasedThisFrame
-                && Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, floorLayers))
+                && Physics.Raycast(cameraRay, out RaycastHit hit, float.MaxValue, floorLayers | interactableLayers))
             {
                 List<AbstractUnit> abstractUnits = new(selectedUnits.Count);
                 foreach (ISelectable selectable in selectedUnits)
@@ -212,7 +213,7 @@ namespace RTS.Player
             }
             else if (activeAction != null
                 && !EventSystem.current.IsPointerOverGameObject()
-                && Physics.Raycast(cameraRay, out hit, float.MaxValue, floorLayers))
+                && Physics.Raycast(cameraRay, out hit, float.MaxValue, floorLayers | interactableLayers))
             {
                 ActivateAction(hit);
             }
@@ -228,7 +229,10 @@ namespace RTS.Player
             for (int i = 0; i < abstractUnits.Count; i++)
             {
                 CommandContext context = new(abstractUnits[i], hit, i);
-                activeAction.Handle(context);
+                if(activeAction.CanHandle(context))
+                {
+                    activeAction.Handle(context);
+                }
             }
 
             activeAction = null;
