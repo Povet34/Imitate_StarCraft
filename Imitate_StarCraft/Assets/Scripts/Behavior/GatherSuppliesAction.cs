@@ -28,22 +28,13 @@ namespace RTS.Behavior
 
         protected override Status OnUpdate()
         {
-            if(GatherableSupplies.Value.Supply.BaseGatherTime + enterTime <= Time.time)
+            if (GatherableSupplies.Value.Supply.BaseGatherTime + enterTime <= Time.time)
             {
-                int gatheredAmount = GatherableSupplies.Value.EndGather();
-                Amount.Value += gatheredAmount;
-                if (gatheredAmount <= 0)
-                {
-                    int amountGathered = GatherableSupplies.Value.EndGather();
-                    return Status.Success;
-                }
+                int amountGathered = GatherableSupplies.Value.EndGather();
+                return Status.Success;
             }
 
             return Status.Running;
-        }
-
-        protected override void OnEnd()
-        {
         }
     }
 }
