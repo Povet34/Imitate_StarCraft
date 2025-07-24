@@ -1,9 +1,10 @@
 using System;
 using Unity.Behavior;
-using UnityEngine;
-using Action = Unity.Behavior.Action;
 using Unity.Properties;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.AI;
+using Action = Unity.Behavior.Action;
 
 namespace RTS.Behavior
 {
@@ -18,13 +19,13 @@ namespace RTS.Behavior
 
         protected override Status OnStart()
         {
-            if(!Agent.Value.TryGetComponent(out agent))
+            if (!Agent.Value.TryGetComponent(out agent))
             {
                 Debug.LogError("Agent does not have a NavMeshAgent component.");
                 return Status.Failure;
             }
 
-            Vector3 targetPosition = TargetGameObject.Value.transform.position;
+            Vector3 targetPosition = GetTargetPosition();
             if (Vector3.Distance(Agent.Value.transform.position, targetPosition) < agent.stoppingDistance)
             {
                 return Status.Success; // Already at the target position
@@ -33,6 +34,8 @@ namespace RTS.Behavior
             agent.SetDestination(targetPosition);
             return Status.Running;
         }
+
+
 
         protected override Status OnUpdate()
         {
@@ -46,6 +49,21 @@ namespace RTS.Behavior
                 return Status.Running; // Still moving towards the target
             }
             return Status.Success; // Reached the target position
+        }
+
+        private Vector3 GetTargetPosition()
+        {
+            Vector3 targetPosition;
+            if (TargetGameObject.Value.TryGetComponent(out Collider collider))
+            {
+                targetPosition = collider.ClosestPoint(agent.transform.position);
+            }
+            else
+            {
+                targetPosition = TargetGameObject.Value.transform.position;
+            }
+
+            return targetPosition;
         }
     }
 }
