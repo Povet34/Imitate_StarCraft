@@ -35,8 +35,6 @@ namespace RTS.Behavior
             return Status.Running;
         }
 
-
-
         protected override Status OnUpdate()
         {
             if (agent == null)
