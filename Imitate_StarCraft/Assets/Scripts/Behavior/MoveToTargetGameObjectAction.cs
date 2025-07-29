@@ -19,9 +19,8 @@ namespace RTS.Behavior
 
         protected override Status OnStart()
         {
-            if (!Agent.Value.TryGetComponent(out agent))
+            if (!Agent.Value.TryGetComponent(out agent) || TargetGameObject.Value == null)
             {
-                Debug.LogError("Agent does not have a NavMeshAgent component.");
                 return Status.Failure;
             }
 

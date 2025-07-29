@@ -1,7 +1,7 @@
 ﻿
 namespace RTS.Environment
 {
-    internal interface IGatherable
+    public interface IGatherable
     {
         public SupplySO Supply { get; }
         public int Amount { get; }
@@ -9,5 +9,6 @@ namespace RTS.Environment
 
         public bool BeginGatherg();
         public int EndGather();
+        public void AbortGather();
     }
 }
