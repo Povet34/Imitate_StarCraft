@@ -12,7 +12,7 @@ namespace RTS.Environment
             Amount = Supply.MaxAmount;
         }
 
-        public bool BeginGatherg()
+        public bool BeginGather()
         {
             if (IsBusy)
             {

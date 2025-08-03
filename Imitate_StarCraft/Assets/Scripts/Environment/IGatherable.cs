@@ -7,7 +7,7 @@ namespace RTS.Environment
         public int Amount { get; }
         public bool IsBusy { get;}
 
-        public bool BeginGatherg();
+        public bool BeginGather();
         public int EndGather();
         public void AbortGather();
     }
