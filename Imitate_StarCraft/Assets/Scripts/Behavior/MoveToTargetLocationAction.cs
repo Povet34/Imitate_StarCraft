@@ -17,6 +17,7 @@ namespace RTS.Behavior
 
         private NavMeshAgent agent;
 
+
         protected override Status OnStart()
         {
             if (!Agent.Value.TryGetComponent(out agent))

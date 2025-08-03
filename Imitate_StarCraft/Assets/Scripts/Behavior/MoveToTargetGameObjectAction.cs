@@ -1,3 +1,4 @@
+using RTS.Utilities;
 using System;
 using Unity.Behavior;
 using Unity.Properties;
@@ -16,6 +17,8 @@ namespace RTS.Behavior
         [SerializeReference] public BlackboardVariable<GameObject> TargetGameObject;
 
         private NavMeshAgent agent;
+        private Animator animator;
+
 
         protected override Status OnStart()
         {
@@ -23,6 +26,9 @@ namespace RTS.Behavior
             {
                 return Status.Failure;
             }
+
+            Agent.Value.TryGetComponent(out animator);
+
 
             Vector3 targetPosition = GetTargetPosition();
             if (Vector3.Distance(Agent.Value.transform.position, targetPosition) < agent.stoppingDistance)
@@ -36,17 +42,27 @@ namespace RTS.Behavior
 
         protected override Status OnUpdate()
         {
-            if (agent == null)
+            if (animator != null)
             {
-                Debug.LogError("NavMeshAgent is not initialized.");
-                return Status.Failure;
+                animator.SetFloat(AnimationConstants.SPEED, agent.velocity.magnitude);
             }
-            if (agent.pathPending || agent.remainingDistance > agent.stoppingDistance)
+
+            if (agent.remainingDistance <= agent.stoppingDistance)
             {
-                return Status.Running; // Still moving towards the target
+                return Status.Success;
             }
-            return Status.Success; // Reached the target position
+
+            return Status.Running;
         }
+
+        protected override void OnEnd()
+        {
+            if (animator != null)
+            {
+                animator.SetFloat(AnimationConstants.SPEED, 0);
+            }
+        }
+
 
         private Vector3 GetTargetPosition()
         {
