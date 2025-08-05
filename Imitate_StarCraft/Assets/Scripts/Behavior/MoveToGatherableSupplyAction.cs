@@ -47,10 +47,10 @@ namespace RTS.Behavior
             }
 
 
-            if (agent.remainingDistance >= agent.stoppingDistance)
-            {
-                return Status.Running;
-            }
+            //if (agent.remainingDistance >= agent.stoppingDistance)
+            //{
+            //    return Status.Running;
+            //}
 
             if (!Supply.Value.IsBusy && Supply.Value.Amount > 0)
             {

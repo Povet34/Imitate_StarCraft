@@ -47,6 +47,8 @@ namespace RTS.Behavior
                 animator.SetFloat(AnimationConstants.SPEED, agent.velocity.magnitude);
             }
 
+            //여기에 문제있음.
+            //남아있는게 한참인데, remainingDistance은 진입하자마자 적음.
             if (agent.remainingDistance <= agent.stoppingDistance)
             {
                 return Status.Success;
