@@ -46,12 +46,6 @@ namespace RTS.Behavior
                 animator.SetFloat(AnimationConstants.SPEED, agent.velocity.magnitude);
             }
 
-
-            //if (agent.remainingDistance >= agent.stoppingDistance)
-            //{
-            //    return Status.Running;
-            //}
-
             if (!Supply.Value.IsBusy && Supply.Value.Amount > 0)
             {
                 return Status.Success;
