@@ -10,13 +10,13 @@ namespace RTS.Events
 {
     public struct SupplyEvent : IEvent
     {
-        public SupplyEvent(int aount, SupplySO supplySO)
+        public SupplyEvent(int amount, SupplySO supplySO)
         {
-            Aount = aount;
-            SupplySO = supplySO;
+            Amount = amount;
+            Supply = supplySO;
         }
 
-        public int Aount { get; private set; }
-        public SupplySO SupplySO { get; private set; }
+        public int Amount { get; private set; }
+        public SupplySO Supply { get; private set; }
     }
 }
