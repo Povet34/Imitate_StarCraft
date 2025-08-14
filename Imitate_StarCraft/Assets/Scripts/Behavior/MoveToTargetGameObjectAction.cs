@@ -36,7 +36,6 @@ namespace RTS.Behavior
                 return Status.Success; // Already at the target position
             }
 
-            Debug.Log($"{targetPosition} - {agent.transform.position} = {Vector3.Distance(targetPosition, agent.transform.position)}");
             agent.SetDestination(targetPosition);
             return Status.Running;
         }
@@ -48,8 +47,6 @@ namespace RTS.Behavior
                 animator.SetFloat(AnimationConstants.SPEED, agent.velocity.magnitude);
             }
 
-            //여기에 문제있음.
-            //남아있는게 한참인데, remainingDistance은 진입하자마자 적음.
             if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
             {
                 return Status.Success;

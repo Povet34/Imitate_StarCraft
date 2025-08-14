@@ -12584,8 +12584,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1016691561}
+  - component: {fileID: 1016691562}
   m_Layer: 5
-  m_Name: Resources Bar
+  m_Name: Supplies Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12613,6 +12614,23 @@ RectTransform:
   m_AnchoredPosition: {x: -350, y: -50}
   m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1016691562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016691560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ff2918b0d47654d9b8a70edc57a44a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mineralsText: {fileID: 820690752}
+  gasText: {fileID: 75462576}
+  populationText: {fileID: 893058838}
+  mineralsSO: {fileID: 11400000, guid: c9582150ef945c34a880d4418c629ed6, type: 2}
+  gasSO: {fileID: 11400000, guid: d2c0abf78fbc6e84b94e2ebc91504482, type: 2}
 --- !u!1001 &1019172404
 PrefabInstance:
   m_ObjectHideFlags: 0
