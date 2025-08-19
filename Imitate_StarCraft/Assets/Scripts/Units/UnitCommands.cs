@@ -8,5 +8,6 @@ namespace RTS.Units
         Stop,
         Move,
         Gather,
+        ReturnSupplies,
     }
 }

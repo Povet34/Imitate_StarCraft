@@ -9,6 +9,20 @@ namespace RTS.Units
 {
     public class Worker : AbstractUnit
     {
+        public bool HasSupplies
+        {
+            get
+            {
+                if (graphAgent != null && graphAgent.GetVariable("SupplyAmountHeld", out BlackboardVariable<int> heldVariable))
+                {
+                    return heldVariable.Value > 0;
+                }
+
+                return false;
+            }
+        }
+
+
         protected override void Start()
         {
             base.Start();
@@ -17,6 +31,13 @@ namespace RTS.Units
                 eventChannelVariable.Value.Event += HandleGatherSupplies;
             }
         }
+
+        public void ReturnSupplies(GameObject commandPost)
+        {
+            graphAgent.SetVariableValue("CommandPost", commandPost);
+            graphAgent.SetVariableValue("Command", UnitCommands.ReturnSupplies);
+        }
+
 
         public void Gather(GatherableSupply supply)
         {
