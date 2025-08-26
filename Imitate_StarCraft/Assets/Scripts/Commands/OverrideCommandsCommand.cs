@@ -2,17 +2,17 @@ using UnityEngine;
 
 namespace RTS.Commands
 {
+    [CreateAssetMenu(fileName = "Override Commands", menuName = "Units/Commands/Override Commands", order = 110)]
     public class OverrideCommandsCommand : ActionBase
     {
         [field: SerializeField] public ActionBase[] Commands { get; private set; }
         public override bool CanHandle(CommandContext context)
         {
-            throw new System.NotImplementedException();
+            return context.Commandable != null;
         }
 
         public override void Handle(CommandContext context)
         {
-            throw new System.NotImplementedException();
         }
     }
 }
