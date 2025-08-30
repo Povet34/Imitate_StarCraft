@@ -41,6 +41,8 @@ namespace RTS.Units
                 decalProjector.gameObject.SetActive(false);
             }
 
+           SetCommandOvrrides(null);
+
             Bus<UnitDeselectedEvent>.Raise(new UnitDeselectedEvent(this));
         }
 
