@@ -13,7 +13,7 @@ namespace RTS.Commands
 
         public override void Handle(CommandContext context)
         {
-            context.Commandable.SetCommandOvrrides(Commands);
+            context.Commandable.SetCommandOverrides(Commands);
         }
     }
 }

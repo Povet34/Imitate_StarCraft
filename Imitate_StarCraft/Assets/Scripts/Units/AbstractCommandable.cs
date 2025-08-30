@@ -14,14 +14,14 @@ namespace RTS.Units
         [SerializeField] private DecalProjector decalProjector;
         [field: SerializeField] public UnitSO UnitSO { get; private set; }
 
-        private ActionBase[] initalCommands;
+        private ActionBase[] initialCommands;
 
         protected virtual void Start()
         {
             MaxHealth = UnitSO.Health;
             CurrentHealth = UnitSO.Health;
 
-            initalCommands = AvailableCommands;
+            initialCommands = AvailableCommands;
         }
 
         public void Select()
@@ -41,20 +41,24 @@ namespace RTS.Units
                 decalProjector.gameObject.SetActive(false);
             }
 
-           SetCommandOvrrides(null);
+            SetCommandOverrides(null);
 
             Bus<UnitDeselectedEvent>.Raise(new UnitDeselectedEvent(this));
         }
 
-        public void SetCommandOvrrides(ActionBase[] commands)
+        public void SetCommandOverrides(ActionBase[] commands)
         {
-            if(commands == null || commands.Length == 0)
+            if (commands == null || commands.Length == 0)
             {
-                AvailableCommands = initalCommands;
-                return;
+                AvailableCommands = initialCommands;
+            }
+            else
+            {
+                AvailableCommands = commands;
             }
 
-            AvailableCommands = commands;
+            Bus<UnitSelectedEvent>.Raise(new UnitSelectedEvent(this));
         }
+
     }
 }
