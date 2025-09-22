@@ -52,7 +52,7 @@ namespace RTS.UI.Containers
         }
 
 
-        private void HandleQueueUpdated(UnitSO[] unitsInQueue)
+        private void HandleQueueUpdated(AbstractUnitSO[] unitsInQueue)
         {
             if (unitsInQueue.Length == 1 && buildCoroutine == null)
             {
