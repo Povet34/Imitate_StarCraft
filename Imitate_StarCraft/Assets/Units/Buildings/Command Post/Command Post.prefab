@@ -90,7 +90,9 @@ MonoBehaviour:
   <AvailableCommands>k__BackingField:
   - {fileID: 11400000, guid: cbe8c0fe23bbeda49b77caf1d8f3f585, type: 2}
   decalProjector: {fileID: 4521576536335230216}
-  UnitSO: {fileID: 11400000, guid: d9a799e1d37e9d147b1bfec5a2ebb7d2, type: 2}
+  <UnitSO>k__BackingField: {fileID: 11400000, guid: 49118b0e8a4833d4999833cee3c42311, type: 2}
+  <CurrentQueueStartTime>k__BackingField: 0
+  <BuildingUnit>k__BackingField: {fileID: 0}
 --- !u!1 &9207727677831958415
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5b170b65db470e45938f71c89440a00, type: 3}
+  m_Script: {fileID: 11500000, guid: e6144fd75ed80f14fb6c3cad2a82b07e, type: 3}
   m_Name: Infantry School
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 400
   <Prefab>k__BackingField: {fileID: 5175054564074698786, guid: c3932362a5b6dcf4ab5981f279eb5a71, type: 3}
   <BuildTime>k__BackingField: 5
   <Icon>k__BackingField: {fileID: 21300000, guid: 9913c672e9ced57439a2369b346459fe, type: 3}
+  <PlacementMaterial>k__BackingField: {fileID: 2100000, guid: 2c4e81cc05fda4a41b466b51d23d079f, type: 2}
